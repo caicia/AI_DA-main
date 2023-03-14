@@ -1,7 +1,5 @@
 Pandas系列(一)：数据结构(Series、DataFrame、时间序列)
-==============================
-
-
+=====================================================
 
 @[TOC]
 
@@ -18,7 +16,6 @@ Pandas系列(一)：数据结构(Series、DataFrame、时间序列)
 # 二、 思维导图
 
 ![Pandas数据结构](https://img-blog.csdnimg.cn/a3b8e47b5df6456fb3e49abaf00faad3.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVzdGxlaQ==,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center)
-
 
 <br>
 
@@ -38,15 +35,15 @@ Pandas系列(一)：数据结构(Series、DataFrame、时间序列)
 <font color=#888>可以用已有的列表、数组、字典创建Series。
 
 + 根据序列创建
-    + `s=pd.Series([1,2,3])`：根据已有**列表**创建
-    + `s=pd.Series(np.array([1,2]))`：根据已有**数组**创建。默认Series和numpy数组共享内存。
+  + `s=pd.Series([1,2,3])`：根据已有**列表**创建
+  + `s=pd.Series(np.array([1,2]))`：根据已有**数组**创建。默认Series和numpy数组共享内存。
 + 根据标量创建
-    + `s=pd.Series(5, index=['a','b'])`：创建所有值都为5的Series
+  + `s=pd.Series(5, index=['a','b'])`：创建所有值都为5的Series
 + 根据字典创建
-    + `s=pd.Series({'a':1,'b':2})`：根据**字典**创建，key作为标签
+  + `s=pd.Series({'a':1,'b':2})`：根据**字典**创建，key作为标签
 + 参数
-    + `s=pd.Series(data,index=['a','b','c'])`：指定标签
-    + `s=pd.Series(np.array([1,2]),copy=True)`：不共享内存。python列表和字典无法共享内存
+  + `s=pd.Series(data,index=['a','b','c'])`：指定标签
+  + `s=pd.Series(np.array([1,2]),copy=True)`：不共享内存。python列表和字典无法共享内存
 
 > + <font color=#888>不指定标签创建Series时，默认的标签为从0到n-1顺序编号。
 > + <font color=#888>创建Series的时候，可以用dtype参数设置数据类型。
@@ -71,21 +68,21 @@ Pandas系列(一)：数据结构(Series、DataFrame、时间序列)
 + `s['a']`：根据标签访问。（未指定标签的Series，标签和下标相同）
 + `s.get('a')`：类似字典的get，根据标签或下标访问(s.get(2)也是可以的)。无值时返回None
 
-####  1.4.2 切片
- 
+#### 1.4.2 切片
+
 + `s[0:2]`：切片访问。
 + `s['a':'c']`：标签切片访问
 
 #### 1.4.3 列表索引
-  
+
 + `s[[1,2,3]]`：下标列表或数组。`s[np.array([1,2]))`也ok
 + `s[['a','b']]`：标签列表或数组。
 
 #### 1.4.4 条件表达式布尔列表索引
 
 + `s[s>3]`：返回满足条件的元素（多个条件可以用&符号合并）。实际上就是bool类型列表索引
-  
-###  1.5 遍历访问
+
+### 1.5 遍历访问
 
 + `s.keys()`：返回标签列表
 + `s.items()`：返回`[('a':1),('b':2),...]`形式对象。类似字典的items函数
@@ -122,7 +119,6 @@ Pandas系列(一)：数据结构(Series、DataFrame、时间序列)
 
 > <font color=#888>每一列都是一个Series。DataFrame的行数、列数允许增加或者删除。
 
-
 ### 2.2 创建
 
 <font color=#888>可以根据数组(或列表)、字典创建。
@@ -131,10 +127,10 @@ Pandas系列(一)：数据结构(Series、DataFrame、时间序列)
 + `df=pd.DataFrame(np.eye(2,3))`：根据数组创建，只能时1维或2维数组
 + `df=pd.DataFrame(data, index=[1,2,3], coluns=['a','b'])`：指定行标签和列标签。
 + `df=pd.DataFrame({'a':[1,2,3],'b':[4,5,6]}`：根据元素为列表的**字典**创建。key为columns列标签。
-	- 用index参数可以指定行标签。
-	- 用columns参数可以覆盖字典中的列标签，最终采用columns中的标签。
+  - 用index参数可以指定行标签。
+  - 用columns参数可以覆盖字典中的列标签，最终采用columns中的标签。
 + `df=pd.DataFrame([{'a':1,'b':2},{'a':3,'b':4}])`：根据元素为字典的列表创建。key为列标签
-	- 字典的key不同时，每个key作为一列(某一行数据对应的列无数据时，取值NaN)
+  - 字典的key不同时，每个key作为一列(某一行数据对应的列无数据时，取值NaN)
 + `df=pd.DataFrame({'a':s1,'b':s2})`：用Series对象s1、s2创建。Series的行标签不同时，为每个标签创建单独的行。
 
 > <font color=#888>可以用dtype参数设置数据类型。
@@ -144,7 +140,7 @@ Pandas系列(一)：数据结构(Series、DataFrame、时间序列)
 + `df.empty`：是否空DataFrame对象
 + `df.dtypes`：返回每一列的dtype
 + `df.size`：元素数量。
-	- df.ndim总是返回2。
+  - df.ndim总是返回2。
 + `df.shape`：返回形状元组。形式为(行数,列数)
 + `df.index`：返回Index行标签对象。可以用df.index[1]形式访问
 + `df.columns`：返回Index列标签对象。可以用df.columns[1]形式访问
@@ -156,33 +152,33 @@ Pandas系列(一)：数据结构(Series、DataFrame、时间序列)
 #### 2.4.1 列
 
 + 标签访问(单列)
-	+ `df['a']`：根据列标签访问，返回Series。（不能用下标）
-	+ `df.a`：列标签作为属性访问。
+  + `df['a']`：根据列标签访问，返回Series。（不能用下标）
+  + `df.a`：列标签作为属性访问。
 + 标签切片(多列)
-    + `df[['a','b']]`：根据列标签列表访问
+  + `df[['a','b']]`：根据列标签列表访问
 
 #### 2.4.2 行
 
 + loc函数根据行标签访问
-    + `df.loc['col1']`：根据行标签访问，返回同样为Series。（不能用下标）
-    + `df.loc['col1':'col2']`：根据行标签切片访问，返回DataFrame。（不能用下标）
+  + `df.loc['col1']`：根据行标签访问，返回同样为Series。（不能用下标）
+  + `df.loc['col1':'col2']`：根据行标签切片访问，返回DataFrame。（不能用下标）
 + iloc根据行下标访问
-    + `df.iloc[1]`：根据行号访问
-    + `df.iloc[0:2]`：根据行号切片访问
+  + `df.iloc[1]`：根据行号访问
+  + `df.iloc[0:2]`：根据行号切片访问
 + 切片访问
-   - `df[1:3]`：行号切片访问。注意不能用行号访问，只能用切片。
-   - `df['a':'b']`：根据列标签切片访问，返回DataFrame。
-+ 条件下标访问 
-	+ `df[df['a']>3]`：条件表达式生成的布尔列表索引。多个条件可以用`&`符号合并
+  - `df[1:3]`：行号切片访问。注意不能用行号访问，只能用切片。
+  - `df['a':'b']`：根据列标签切片访问，返回DataFrame。
++ 条件下标访问
+  + `df[df['a']>3]`：条件表达式生成的布尔列表索引。多个条件可以用`&`符号合并
 
 #### 2.4.3 行列同时访问
 
 + 单个元素访问
-	+ `df.at[row,col]`：根据行标签和列标签返回单个值。与df[列标签][行标签]相同
-	+ `df.iat[rowi,colj]`：根据行号和列号返回单个值。
+  + `df.at[row,col]`：根据行标签和列标签返回单个值。与df[列标签][行标签]相同
+  + `df.iat[rowi,colj]`：根据行号和列号返回单个值。
 + 多个元素(也可以单个元素访问)
-    + `df.loc[r,c]`：r,c分别为行，列的标签、或标签列表、或布尔数组、或标签切片。
-    + `df.iloc[rowi,colj]`：rowi,colj分别为行，列的序号、或序号列表、或布尔数组、或序号切片。
+  + `df.loc[r,c]`：r,c分别为行，列的标签、或标签列表、或布尔数组、或标签切片。
+  + `df.iloc[rowi,colj]`：rowi,colj分别为行，列的序号、或序号列表、或布尔数组、或序号切片。
 
 ### 2.5 循环访问
 
@@ -198,38 +194,36 @@ Pandas系列(一)：数据结构(Series、DataFrame、时间序列)
 + `df.convert_dtypes()`：转换为支持pd.NA的最佳数据类型
 + `df.to_numpy()`：返回numpy数组格式数据
 
-
 ### 2.7 行列增删
 
 #### 2.7.1 列
 
 + 增加列
-    + `df['newcol']=[1,2,3]`：像字典一样增加列
-    + `df.insert(1,column='newcol',value=[1,2,3])`：在指定位置插入列
-        + <font color=#888>column和value都必须指定。
-        + <font color=#888>value的元素个数也必须与df的行数相同。
+  + `df['newcol']=[1,2,3]`：像字典一样增加列
+  + `df.insert(1,column='newcol',value=[1,2,3])`：在指定位置插入列
+    + <font color=#888>column和value都必须指定。
+    + <font color=#888>value的元素个数也必须与df的行数相同。
 + 删除列
-    + `df.pop('newcol')`：删除指定列
-    + `del df['newcol']`：删除指定列
+  + `df.pop('newcol')`：删除指定列
+  + `del df['newcol']`：删除指定列
 
 #### 2.7.2 行
 
 + `df.append(data)`：增加行，data是DataFrame。
-	+ 不能直接append numpy数组、Series和列表。
-	+ 列表和Series需要处理转换为二维可以append，但是不建议用。
+  + 不能直接append numpy数组、Series和列表。
+  + 列表和Series需要处理转换为二维可以append，但是不建议用。
 + `df.drop(rowlabel)`：删除指定行(用标签）
-    - df.drop([row1,row2])：删除多行
+  - df.drop([row1,row2])：删除多行
 
 ### 2.8 指定标签列
 
 通常我们不直接设置行标签，而是把某个数据列指定为列标签。比如姓名，日期，学号等等。
 
 + `df.set_index("日期")`：把指定列设置为行索引标签，参数为列名称。
-    - drop参数（默认为True），即把列直接转换为索引。drop为False时，则索引和数据中都保留指定的列数据。
+  - drop参数（默认为True），即把列直接转换为索引。drop为False时，则索引和数据中都保留指定的列数据。
 + `df.set_index(["姓名","日期"])`：设置多个索引标签
 + `df.reset_index(drop=False)`：还原索引，重新变为默认的整型索引。
-    - drop为False则索引列会被还原为普通列，否则会丢失。
-
+  - drop为False则索引列会被还原为普通列，否则会丢失。
 
 ```python
 >>> df
@@ -250,7 +244,6 @@ a
 4  4  5  6
 7  7  8  9
 ```
-
 
 ## 3. 时间序列
 
@@ -274,25 +267,25 @@ a
 #### 3.2.2 属性
 
 + 时间分量
-    - t.year：年
-    - t.mounth：月
-    - t.day：日
-    - t.hour：小时
-    - t.minute：分钟
-    - t.second：秒
-    - t.microsecond：毫秒
-    - t.nanosecond：纳秒
+  - t.year：年
+  - t.mounth：月
+  - t.day：日
+  - t.hour：小时
+  - t.minute：分钟
+  - t.second：秒
+  - t.microsecond：毫秒
+  - t.nanosecond：纳秒
 + 统计属性
-    - t.dayofyear：一年中的第几天
-    - t.dayofweek：一周中的第几天
-    - t.weekofyear：一年中的第几周
-    - t.daysinmonth：本月共几天
+  - t.dayofyear：一年中的第几天
+  - t.dayofweek：一周中的第几天
+  - t.weekofyear：一年中的第几周
+  - t.daysinmonth：本月共几天
 + 判断
-    - t.is_month_end：是否月末
-    - t.is_leap_year：是否闰年
+  - t.is_month_end：是否月末
+  - t.is_leap_year：是否闰年
 + 其他
-    - t.value：unix时间戳秒数
-    - t.tz：时区
+  - t.value：unix时间戳秒数
+  - t.tz：时区
 
 #### 3.2.3 转换函数
 
@@ -312,20 +305,20 @@ Period用于表示一个时间段，比如某年、某月、某小时等。时�
 #### 3.3.2 创建
 
 + `tp=pd.Period('2020-12-1', freq="M")`：根据字符串创建时间段。
-    - 字母"YMDHTSQW"分别表示年月日时分秒季周。A也表示年
-    - A-DEC，W-SUN，Q-DEC表示年周季中的月天等。一般默认都是12月或星期天。
+  - 字母"YMDHTSQW"分别表示年月日时分秒季周。A也表示年
+  - A-DEC，W-SUN，Q-DEC表示年周季中的月天等。一般默认都是12月或星期天。
 + `tp=pd.Period(pd.Timestamp('2020'),freq="H")`：根据时间戳创建
 + `tp=t.to_period("M")`：时间戳转换为时间段
 
 #### 3.3.3 属性
 
 + 与Timestamp相同的属性
-    - year,month,day,hour,minute,second,week
-    - dayofyear,dayofweek,weekofyear,daysinmonth
+  - year,month,day,hour,minute,second,week
+  - dayofyear,dayofweek,weekofyear,daysinmonth
 + `tp.sart_time`：时间段起始时间
 + `tp.end_time`：时间段结束时间
 + `tp.freqstr`：时间段长短符号
-    - tp.freq：返回一个表示时间段的对象
+  - tp.freq：返回一个表示时间段的对象
 
 #### 3.3.4 转换函数
 
@@ -350,8 +343,8 @@ Period用于表示一个时间段，比如某年、某月、某小时等。时�
 
 + td.days：天数
 + td.seconds：秒数
-    - td.microseconds：微秒
-    - td.nanoseconds：纳秒数
+  - td.microseconds：微秒
+  - td.nanoseconds：纳秒数
 
 #### 3.4.4 转换函数
 
@@ -381,5 +374,5 @@ Period用于表示一个时间段，比如某年、某月、某小时等。时�
 <hr>
 
 > 个人总结，部分内容进行了简单的处理和归纳，如有谬误，希望大家指出，持续修订更新中。
-> 
-> 修订历史版本见：<https://github.com/hustlei/AI_Learning_MindMap>
+>
+> 修订历史版本见：[https://github.com/hustlei/AI_Learning_MindMap](https://github.com/hustlei/AI_Learning_MindMap)
