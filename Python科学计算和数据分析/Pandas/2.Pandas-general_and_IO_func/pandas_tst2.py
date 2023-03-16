@@ -11,6 +11,7 @@ email:hustlei@sina.cn
 
 
 import numpy as np
+import pyarrow
 import pandas as pd
 
 
@@ -18,7 +19,6 @@ import pandas as pd
 """four fundational arithmetic of pandas"""
 s1 = pd.Series([1,2,3],index=['a','b','c'])
 s2 = pd.Series([1,3,5])
-print(s1+s2)
 
 df1 = pd.DataFrame({'a':[1,2,3],'b':[4,5,6]})
 df2 = pd.DataFrame({'b':[1,2,3],'c':[4,5,6]})
@@ -40,4 +40,10 @@ df2 = pd.DataFrame({'b':[1,2,3],'c':[4,5,6]})
 2 NaN  9   True
 '''
 
-df1.to_excel('a.xslx')
+df1.to_csv('a.xlsx')
+
+df = pd.read_csv('./a.xlsx', dtype_backend='pyarrow')
+print(df.info())
+
+df = pd.read_csv('./a.xlsx', dtype_backend='pyarrow', engine='pyarrow')
+print(df.info())
